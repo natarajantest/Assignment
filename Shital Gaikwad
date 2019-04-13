@@ -1,0 +1,44 @@
+package Package1;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class SpiceJet {
+
+	public static void main(String[] args)
+	{
+		WebDriver driver= new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("http://spicejet.com");
+		//from
+		driver.findElement(By.id("ctl00_mainContent_ddl_originStation1_CTXT")).click();
+		driver.findElement(By.linkText("Pune (PNQ)")).click();
+		//to
+		driver.findElement(By.id("ctl00_mainContent_ddl_destinationStation1_CTXT")).click();
+		driver.findElement(By.linkText("Chennai (MAA)")).click();
+		//departure date
+		//driver.findElement(By.className("ui-datepicker-trigger")).click();
+		Actions act=new Actions(driver);
+		act.moveToElement(driver.findElement(By.linkText("22"))).build().perform();
+		driver.findElement(By.linkText("22")).click();
+	//	driver.findElement(By.xpath("//a[text()='22']")).click();
+		//passengers
+		driver.findElement(By.className("paxinfo")).click();
+		//+ button	
+		driver.findElement(By.id("hrefIncAdt")).click();
+		//currency
+		driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")).click();
+		Select sc=new Select(driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")));
+		sc.selectByValue("USD");
+		//flight button
+		driver.findElement(By.id("ctl00_mainContent_btn_FindFlights")).click();
+		
+	}
+
+}
