@@ -1,0 +1,44 @@
+package Test1;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class SpiceJet {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver driver=new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.get("https://www.spicejet.com/");
+		driver.findElement(By.id("ctl00_mainContent_rbtnl_Trip_1")).click();
+		driver.findElement(By.name("ctl00_mainContent_ddl_originStation1_CTXT")).sendKeys("Hubli");
+		driver.findElement(By.name("ctl00_mainContent_ddl_destinationStation1_CTXT")).sendKeys("Pune");
+	//	driver.findElement(By.name("ctl00$mainContent$view_date1")).sendKeys("18/02");
+		//driver.findElement(By.name("ctl00$mainContent$view_date2")).sendKeys("18/06");
+		Actions act =new Actions(driver);
+		driver.findElement(By.name("ctl00$mainContent$view_date1")).click();
+		act.moveToElement(driver.findElement(By.xpath("//a[text()='22']"))).build().perform();
+		driver.findElement(By.xpath("//a[text()='22']")).click();
+		Thread.sleep(1000);
+		driver.findElement(By.id("ctl00_mainContent_view_date2")).click();
+		act.moveToElement(driver.findElement(By.xpath("//a[text()='12']"))).build().perform();
+		driver.findElement(By.xpath("//a[text()='12']")).click();
+		Thread.sleep(1000);
+	    driver.findElement(By.className("paxinfo")).click();
+	    driver.findElement(By.id("hrefIncAdt")).click();
+	    driver.findElement(By.id("hrefIncAdt")).click();
+	    Thread.sleep(1000);
+	    driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")).click();
+	    Select sc=new Select(driver.findElement(By.id("ctl00_mainContent_DropDownListCurrency")));
+	    sc.selectByValue("USD");
+	    Thread.sleep(1000);
+	    driver.findElement(By.id("ctl00_mainContent_btn_FindFlights")).click();
+	    
+	}
+
+}
